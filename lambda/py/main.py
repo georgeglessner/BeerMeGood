@@ -63,7 +63,7 @@ class BeerMeIntent(AbstractRequestHandler):
         if(totalCount>=1):
             for i in range(0, totalCount):
                 if parsed_json[i]['status'] in ['Brewpub', 'Brewery']:
-                    breweries.append([parsed_json[i]['name'], parsed_json[i]['street']])
+                    breweries.append({'name': parsed_json[i]['name'], 'street': parsed_json[i]['street'], 'locID': parsed_json[i]['id'], 'overall':parsed_json[i]['overall']})
         
         randInt = randint(0,len(breweries))
 
@@ -74,6 +74,40 @@ class BeerMeIntent(AbstractRequestHandler):
             False)
         return handler_input.response_builder.response
 
+class TopBreweryIntent(AbstractRequestHandler):
+    """Handler for Beer Me Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return is_intent_name("TopBreweryIntent")(handler_input)
+
+    def handle(self, handler_input):
+        slots = handler_input.request_envelope.request.intent.slots
+        city = slots.get("topcity").value
+        city = city.replace(' ', '+')
+        
+        f = urllib.request.urlopen('http://beermapping.com/webservice/loccity/{}/{}&s=json'.format(api_key, city))
+        
+        json_string = f.read()
+        parsed_json = json.loads(json_string)
+        totalCount = len(parsed_json)
+        
+        breweries = []
+        
+        if(totalCount>=1):
+            for i in range(0, totalCount):
+                if parsed_json[i]['status'] in ['Brewpub', 'Brewery']:
+                    breweries.append({'name': parsed_json[i]['name'], 'street': parsed_json[i]['street'], 'locID': parsed_json[i]['id'], 'overall':parsed_json[i]['overall']})
+        
+        seq = []
+        for x in breweries:
+            seq.append([x['overall'], x['name'], x['street']])
+        
+        speech_text = '{} located at {}'.format(max(seq)[1], max(seq)[2])
+
+        handler_input.response_builder.speak(speech_text).set_card(
+            SimpleCard("Beer Me", speech_text)).set_should_end_session(
+            False)
+        return handler_input.response_builder.response
 
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
@@ -159,6 +193,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(BeerMeIntent())
+sb.add_request_handler(TopBreweryIntent())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(FallbackIntentHandler())
