@@ -1,0 +1,31 @@
+--- TEMPLATE --- 
+
+Location Name: [Name of Brewery]
+Country: United States
+State/Province: [State]
+Street Address: [Address]
+City: [City]
+Zip/Postal Code: [Zip Code]
+Phone Number: [(xxx) xxx-xxxx]
+Website URL: [wbsite]
+Location Type: [Brewery, Brewpub, Beer Bar, Beer Store, Homebrew Store]
+Facebook URL: [Optinal Facebook URL]
+Twitter URL: [Optinal Twitter URL]
+Instagram URL: [Optinal Instagram URL]
+
+--- END TEMPLATE ---
+
+--- ADD NEW BREWERIES TO LIST BELOW --- 
+
+Location Name: Grand Armory Brewing Company
+Country: United States
+State/Province: Michigan
+Street Address: 17 S 2nd St,
+City: Grand Haven
+Zip/Postal Code: 49417
+Phone Number: (616) 414-7822
+Website URL: http://www.grandarmorybrewing.com/
+Location Type: Brewery 
+Facebook URL: http://www.facebook.com/grandarmorybrew
+Twitter URL: http://www.twitter.com/grandarmorybrew
+Instagram URL: http://www.instagram.com/grandarmorybrew
