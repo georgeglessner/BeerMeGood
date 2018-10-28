@@ -1,5 +1,6 @@
 # Beer Me Good
-### Alexa Skill that helps you find breweries in a given city
+
+_**Currently not in production on alexa skills**_
 
 ## Invocation
 - Alexa, open beer me good
