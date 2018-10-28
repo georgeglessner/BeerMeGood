@@ -62,10 +62,12 @@ class BeerMeIntent(AbstractRequestHandler):
         
         if(totalCount>=1):
             for i in range(0, totalCount):
-                if parsed_json[i]['status'] == 'Brewpub':
-                    breweries.append(parsed_json[i]['name'])
+                if parsed_json[i]['status'] in ['Brewpub', 'Brewery']:
+                    breweries.append([parsed_json[i]['name'], parsed_json[i]['street']])
         
-        speech_text = breweries[randint(0,len(breweries))]
+        randInt = randint(0,len(breweries))
+
+        speech_text = "{} located at {}".format(breweries[randInt][0], breweries[randInt][1])
 
         handler_input.response_builder.speak(speech_text).set_card(
             SimpleCard("Beer Me", speech_text)).set_should_end_session(
