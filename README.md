@@ -1,3 +1,5 @@
+<img src="https://github.com/georgeglessner/BeerMeGood/blob/master/images/logo.png" alt="Image" width="100" height="100" style="margin: 0 auto"/>
+
 # Beer Me Good
 
 _**Currently not in production on alexa skills**_
