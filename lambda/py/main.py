@@ -33,7 +33,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speech_text = "Welcome to Beer Me Good, you can say a city!"
+        speech_text = "Welcome to Beer Me Good, find a brewery in a city!"
 
         handler_input.response_builder.speak(speech_text).set_card(
             SimpleCard("Beer Me", speech_text)).set_should_end_session(
@@ -67,7 +67,7 @@ class BeerMeIntent(AbstractRequestHandler):
         
         randInt = randint(0,len(breweries))
 
-        speech_text = "{} located at {}".format(breweries[randInt][0], breweries[randInt][1])
+        speech_text = "{} located at {}".format(breweries[randInt].get('name'), breweries[randInt].get('street'))
 
         handler_input.response_builder.speak(speech_text).set_card(
             SimpleCard("Beer Me", speech_text)).set_should_end_session(
