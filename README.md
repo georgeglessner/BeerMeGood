@@ -1,11 +1,11 @@
-<img src="https://github.com/georgeglessner/BeerMeGood/blob/master/images/logo.png" alt="Image" width="100" height="100" style="margin: 0 auto"/>
+<img src="https://github.com/georgeglessner/BreweryLocator/blob/master/images/logo.png" alt="Image" width="100" height="100" style="margin: 0 auto"/>
 
-# Beer Me Good
+# Brewery Locator
 
 _**Currently not in production on alexa skills**_
 
 ## Invocation
-- Alexa, open beer me good
+- Alexa, open brewery locator
 
 ## Usage 
 - {city}
