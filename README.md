@@ -7,8 +7,8 @@ _**Currently not in production on alexa skills**_
 
 ## Usage 
 - {city}
-- find a brewery in {city}
-- find top brewering in {city}
+- Find a brewery in {city}
+- Find top brewery in {city}
 
 
 ## Examples
