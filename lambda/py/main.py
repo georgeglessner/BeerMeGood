@@ -33,7 +33,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speech_text = "Welcome to Beer Me Good, find a brewery in a city!"
+        speech_text = "Welcome to Brewery Locator, ask to find a brewery in a city!"
 
         handler_input.response_builder.speak(speech_text).set_card(
             SimpleCard("Beer Me", speech_text)).set_should_end_session(
