@@ -16,10 +16,10 @@
 ## Examples
 
 > User: "Find a brewery in Grand Rapids"  
- BeerMeGood: "Grand Rapids Brewing Co located at 1 Ionia Ave."
+ BreweryLocator: "Grand Rapids Brewing Co located at 1 Ionia Ave."
 
 >User: "Find top brewery in Grand Rapids"  
-BeerMeGood: "Brewery Vivant located at 925 Cherry St SE"  
+BreweryLocator: "Brewery Vivant located at 925 Cherry St SE"  
 
 
 ## Contributing
