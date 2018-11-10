@@ -2,7 +2,7 @@
 
 # Brewery Locator
 
-_**Currently not in production on alexa skills**_
+[Enable this skill](https://www.amazon.com/dp/B07KDCT991/ref=sr_1_1?s=digital-skills&ie=UTF8&qid=1541888162&sr=1-1&keywords=brewery+locator) 
 
 ## Invocation
 - Alexa, open brewery locator
