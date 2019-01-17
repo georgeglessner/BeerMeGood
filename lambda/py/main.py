@@ -74,6 +74,104 @@ class BeerMeIntent(AbstractRequestHandler):
             False)
         return handler_input.response_builder.response
 
+class BeerMeIntentState(AbstractRequestHandler):
+    """Handler for Beer Me Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return is_intent_name("BeerMeIntent")(handler_input)
+
+    def handle(self, handler_input):
+    	states = {
+	    'AL': 'Alabama',
+	    'AK': 'Alaska',
+	    'AS': 'American Samoa',
+	    'AZ': 'Arizona',
+	    'AR': 'Arkansas',
+	    'CA': 'California',
+	    'CO': 'Colorado',
+	    'CT': 'Connecticut',
+	    'DE': 'Delaware',
+	    'DC': 'District Of Columbia',
+	    'FM': 'Federated States Of Micronesia',
+	    'FL': 'Florida',
+	    'GA': 'Georgia',
+	    'GU': 'Guam',
+	    'HI': 'Hawaii',
+	    'ID': 'Idaho',
+	    'IL': 'Illinois',
+	    'IN': 'Indiana',
+	    'IA': 'Iowa',
+	    'KS': 'Kansas',
+	    'KY': 'Kentucky',
+	    'LA': 'Louisiana',
+	    'ME': 'Maine',
+	    'MH': 'Marshall Islands',
+	    'MD': 'Maryland',
+	    'MA': 'Massachusetts',
+	    'MI': 'Michigan',
+	    'MN': 'Minnesota',
+	    'MS': 'Mississippi',
+	    'MO': 'Missouri',
+	    'MT': 'Montana',
+	    'NE': 'Nebraska',
+	    'NV': 'Nevada',
+	    'NH': 'New Hampshire',
+	    'NJ': 'New Jersey',
+	    'NM': 'New Mexico',
+	    'NY': 'New York',
+	    'NC': 'North Carolina',
+	    'ND': 'North Dakota',
+	    'MP': 'Northern Mariana Islands',
+	    'OH': 'Ohio',
+	    'OK': 'Oklahoma',
+	    'OR': 'Oregon',
+	    'PW': 'Palau',
+	    'PA': 'Pennsylvania',
+	    'PR': 'Puerto Rico',
+	    'RI': 'Rhode Island',
+	    'SC': 'South Carolina',
+	    'SD': 'South Dakota',
+	    'TN': 'Tennessee',
+	    'TX': 'Texas',
+	    'UT': 'Utah',
+	    'VT': 'Vermont',
+	    'VI': 'Virgin Islands',
+	    'VA': 'Virginia',
+	    'WA': 'Washington',
+	    'WV': 'West Virginia',
+	    'WI': 'Wisconsin',
+	    'WY': 'Wyoming'
+	  }
+
+        slots = handler_input.request_envelope.request.intent.slots
+        city = slots.get("city").value
+        city = city.replace(' ', '+')
+        state = slots.get("state").value
+        state = states.get(state)
+        print("State found: " + state);
+        
+        f = urllib.request.urlopen('http://beermapping.com/webservice/loccity/{}/{},{}&s=json'.format(api_key, city, state))
+        
+        json_string = f.read()
+        parsed_json = json.loads(json_string)
+        totalCount = len(parsed_json)
+        
+        breweries = []
+        
+        if(totalCount>=1):
+            for i in range(0, totalCount):
+                if parsed_json[i]['status'] in ['Brewpub', 'Brewery']:
+                    breweries.append({'name': parsed_json[i]['name'], 'street': parsed_json[i]['street'], 'locID': parsed_json[i]['id'], 'overall':parsed_json[i]['overall']})
+        
+        randInt = randint(0,len(breweries))
+
+        speech_text = "{} located at {}".format(breweries[randInt].get('name'), breweries[randInt].get('street'))
+
+        handler_input.response_builder.speak(speech_text).set_card(
+            SimpleCard("Beer Me", speech_text)).set_should_end_session(
+            False)
+        return handler_input.response_builder.response
+
 class TopBreweryIntent(AbstractRequestHandler):
     """Handler for Beer Me Intent."""
     def can_handle(self, handler_input):
@@ -86,6 +184,106 @@ class TopBreweryIntent(AbstractRequestHandler):
         city = city.replace(' ', '+')
         
         f = urllib.request.urlopen('http://beermapping.com/webservice/loccity/{}/{}&s=json'.format(api_key, city))
+        
+        json_string = f.read()
+        parsed_json = json.loads(json_string)
+        totalCount = len(parsed_json)
+        
+        breweries = []
+        
+        if(totalCount>=1):
+            for i in range(0, totalCount):
+                if parsed_json[i]['status'] in ['Brewpub', 'Brewery']:
+                    breweries.append({'name': parsed_json[i]['name'], 'street': parsed_json[i]['street'], 'locID': parsed_json[i]['id'], 'overall':parsed_json[i]['overall']})
+        
+        seq = []
+        for x in breweries:
+            seq.append([x['overall'], x['name'], x['street']])
+        
+        speech_text = '{} located at {}'.format(max(seq)[1], max(seq)[2])
+
+        handler_input.response_builder.speak(speech_text).set_card(
+            SimpleCard("Beer Me", speech_text)).set_should_end_session(
+            False)
+        return handler_input.response_builder.response
+
+class TopBreweryIntentState(AbstractRequestHandler):
+    """Handler for Beer Me Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return is_intent_name("TopBreweryIntent")(handler_input)
+
+    def handle(self, handler_input):
+        states = {
+	    "AL": "Alabama",
+	    "AK": "Alaska",
+	    "AS": "American Samoa",
+	    "AZ": "Arizona",
+	    "AR": "Arkansas",
+	    "CA": "California",
+	    "CO": "Colorado",
+	    "CT": "Connecticut",
+	    "DE": "Delaware",
+	    "DC": "District Of Columbia",
+	    "FM": "Federated States Of Micronesia",
+	    "FL": "Florida",
+	    "GA": "Georgia",
+	    "GU": "Guam",
+	    "HI": "Hawaii",
+	    "ID": "Idaho",
+	    "IL": "Illinois",
+	    "IN": "Indiana",
+	    "IA": "Iowa",
+	    "KS": "Kansas",
+	    "KY": "Kentucky",
+	    "LA": "Louisiana",
+	    "ME": "Maine",
+	    "MH": "Marshall Islands",
+	    "MD": "Maryland",
+	    "MA": "Massachusetts",
+	    "MI": "Michigan",
+	    "MN": "Minnesota",
+	    "MS": "Mississippi",
+	    "MO": "Missouri",
+	    "MT": "Montana",
+	    "NE": "Nebraska",
+	    "NV": "Nevada",
+	    "NH": "New Hampshire",
+	    "NJ": "New Jersey",
+	    "NM": "New Mexico",
+	    "NY": "New York",
+	    "NC": "North Carolina",
+	    "ND": "North Dakota",
+	    "MP": "Northern Mariana Islands",
+	    "OH": "Ohio",
+	    "OK": "Oklahoma",
+	    "OR": "Oregon",
+	    "PW": "Palau",
+	    "PA": "Pennsylvania",
+	    "PR": "Puerto Rico",
+	    "RI": "Rhode Island",
+	    "SC": "South Carolina",
+	    "SD": "South Dakota",
+	    "TN": "Tennessee",
+	    "TX": "Texas",
+	    "UT": "Utah",
+	    "VT": "Vermont",
+	    "VI": "Virgin Islands",
+	    "VA": "Virginia",
+	    "WA": "Washington",
+	    "WV": "West Virginia",
+	    "WI": "Wisconsin",
+	    "WY": "Wyoming"
+	}
+
+        slots = handler_input.request_envelope.request.intent.slots
+        city = slots.get("topcity").value
+        city = city.replace(' ', '+')
+        state = slots.get("state").value
+        state = states.get(state)
+        print("State found: " + state);
+        
+        f = urllib.request.urlopen('http://beermapping.com/webservice/loccity/{}/{},{}&s=json'.format(api_key, city, state))
         
         json_string = f.read()
         parsed_json = json.loads(json_string)
@@ -193,6 +391,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(BeerMeIntent())
+sb.add_request_handler(BeerMeIntentState())
 sb.add_request_handler(TopBreweryIntent())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
