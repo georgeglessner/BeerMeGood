@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "beermegood",
+            "invocationName": "brewery locator",
             "intents": [
                 {
                     "name": "AMAZON.FallbackIntent",
@@ -28,10 +28,68 @@
                         }
                     ],
                     "samples": [
+                        "give me a berwery in {city}",
+                        "find me a brewery in {city}",
                         "Brewery in {city}",
                         "Find a brewery in {city}",
                         "{city}"
                     ]
+                },
+                {
+                    "name": "TopBreweryIntent",
+                    "slots": [
+                        {
+                            "name": "topcity",
+                            "type": "AMAZON.US_CITY"
+                        }
+                    ],
+                    "samples": [
+                        "What is the top brewery in {topcity}",
+                        "Top brewery in {topcity}",
+                        "Find top brewery in {topcity}"
+                    ]
+                },
+                {
+                    "name": "BeerMeIntentState",
+                    "slots": [
+                        {
+                            "name": "city",
+                            "type": "AMAZON.US_CITY"
+                        },
+                        {
+                            "name": "state",
+                            "type": "AMAZON.US_STATE"
+                        }
+                    ],
+                    "samples": [
+                        "give me a brewery in {city} {state}",
+                        "{city} {state}",
+                        "find me a brewery in {city} {state}",
+                        "brewery in {city} {state}",
+                        "Find brewery in {city} {state}"
+                    ]
+                },
+                {
+                    "name": "TopBreweryIntentState",
+                    "slots": [
+                        {
+                            "name": "city",
+                            "type": "AMAZON.US_CITY"
+                        },
+                        {
+                            "name": "state",
+                            "type": "AMAZON.US_STATE"
+                        }
+                    ],
+                    "samples": [
+                        "find top brewery in {city} {state}",
+                        "what is the top brewery in {city} {state} ",
+                        "top brewery in {city} {state}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
                 }
             ],
             "types": []
